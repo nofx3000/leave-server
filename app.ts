@@ -8,9 +8,9 @@ import koa_static from "koa-static";
 import cors from "koa-cors";
 import jwt from "jsonwebtoken";
 import { SECRET_KEY } from "./src/conf/jwt";
-import { authCheck } from "./src/middlewares/auth-check";
 
 import index from "./src/routes/index";
+import login from "./src/routes/login";
 import user from "./src/routes/user";
 
 // error handler
@@ -43,6 +43,9 @@ app.use(async (ctx: Context, next: Next) => {
   const ms = new Date().valueOf() - start.valueOf();
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
 });
+
+app.use(login.routes());
+app.use(login.allowedMethods());
 
 app.use(async (ctx: Context, next: Next) => {
   const token = ctx.header.authorization;
