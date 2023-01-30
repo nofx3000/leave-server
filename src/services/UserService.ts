@@ -7,7 +7,7 @@ class UserService {
 
   async findUser(logininfo: LoginInter) {
     const { username, password } = logininfo;
-    return await this.User.findOne({
+    const res = await this.User.findOne({
       where: {
         username,
         password,
@@ -18,9 +18,11 @@ class UserService {
         },
       ],
     });
+    return res
   }
 
   async createUser(userinfo: UserInfoInter) {
+    console.log('++++++++++++++++++++++', userinfo);
     return await this.User.create(userinfo as any);
   }
 }

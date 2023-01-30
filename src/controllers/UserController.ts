@@ -4,37 +4,40 @@ import { LoginInter, UserInfoInter } from "../interface/UserInterface";
 import jwt from "jsonwebtoken";
 import { SECRET_KEY } from "../conf/jwt";
 import { getService } from "../decorator/auth";
+import { Context } from "koa";
 
 const UserService = getService("UserService");
 
 class UserController {
   static UserController: UserController = new UserController();
-  async login(logininfo: LoginInter) {
-    try {
-      let userinfo = await UserService.findUser(logininfo);
-      if (!userinfo) {
-        return new ErrorModel("not found");
+  // async login(logininfo: LoginInter) {
+  //   try {
+  //     let userinfo = await UserService.findUser(logininfo);
+  //     if (!userinfo) {
+  //       return new ErrorModel("not found");
+  //     }
+  //     const { dataValues } = userinfo;
+  //     // console.log(dataValues);
+  //     let token: any;
+  //     token = jwt.sign(dataValues, SECRET_KEY, {
+  //       expiresIn: "24h",
+  //     });
+  //     return new SuccessModel(token);
+  //   } catch (error) {
+  //     return new ErrorModel((error as any).toString());
+  //   }
+  // }
+  createUser(ctx: Context) {
+    return async (userinfo: UserInfoInter) => {
+      try {
+        const res = await UserService.createUser(userinfo)(ctx);
+        return new SuccessModel(res);
+      } catch (error) {
+        return new ErrorModel((error as any).toString());
       }
-      const { dataValues } = userinfo;
-      // console.log(dataValues);
-      let token: any;
-      token = jwt.sign(dataValues, SECRET_KEY, {
-        expiresIn: "24h",
-      });
-      return new SuccessModel(token);
-    } catch (error) {
-      return new ErrorModel((error as any).toString());
     }
   }
 
-  async createUser(userinfo: UserInfoInter) {
-    try {
-      const res = await UserService.createUser(userinfo);
-      return new SuccessModel(res);
-    } catch (error) {
-      return new ErrorModel((error as any).toString());
-    }
-  }
 
   async verify(token: string) {
     console.log(token);

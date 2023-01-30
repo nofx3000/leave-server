@@ -21,7 +21,7 @@ router.prefix("/api/user");
 
 router.post("/create", async (ctx: Context) => {
   const userinfo: UserInfoInter = ctx.request.body as any;
-  ctx.body = await UserController.createUser(userinfo);
+  ctx.body = await UserController.createUser(ctx)(userinfo);
 });
 
 router.get("/verify1", async (ctx: Context) => {
@@ -38,5 +38,6 @@ router.get("/verify1", async (ctx: Context) => {
   }
   ctx.body = res;
 });
+
 
 export default router;

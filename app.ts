@@ -44,6 +44,12 @@ app.use(async (ctx: Context, next: Next) => {
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
 });
 
+// 添加临时ctx，以供routers向controller传递ctx
+app.use((ctx: Context, next: Next) => {
+  (global as any).tmp_ctx = null
+  next()
+})
+
 app.use(login.routes());
 app.use(login.allowedMethods());
 
