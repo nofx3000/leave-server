@@ -2,7 +2,6 @@ import { SuccessModel, ErrorModel } from "../resmodel/ResModel";
 import RightService from "../services/RightService";
 import RoleService from "../services/RoleService";
 import { RightInter } from "../interface/RightInterface";
-import { RoleInter } from "../interface/RoleInterface";
 import { Model } from "sequelize";
 
 class MenuController {

@@ -8,12 +8,13 @@ import koa_static from "koa-static";
 import cors from "koa-cors";
 import jwt from "jsonwebtoken";
 import { SECRET_KEY } from "./src/conf/jwt";
+import { ErrorModel } from "./src/resmodel/ResModel";
 
 import index from "./src/routes/index";
 import login from "./src/routes/login";
 import user from "./src/routes/user";
 import menu from "./src/routes/menu";
-import { ErrorModel } from "./src/resmodel/ResModel";
+import role from "./src/routes/role";
 
 // error handler
 // onerror(app);
@@ -69,6 +70,8 @@ app.use(user.routes());
 app.use(user.allowedMethods());
 app.use(menu.routes());
 app.use(menu.allowedMethods());
+app.use(role.routes());
+app.use(role.allowedMethods());
 
 // error-handling
 app.on("error", (err: Error, ctx: Context) => {

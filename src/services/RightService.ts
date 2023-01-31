@@ -9,7 +9,6 @@ class RightService {
         service_action: actionName,
       },
     });
-    console.log(res);
     return res;
   }
   async findAllRights() {

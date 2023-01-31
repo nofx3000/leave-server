@@ -3,6 +3,7 @@ import { Context, Next } from "koa";
 import { ErrorModel, SuccessModel } from "../resmodel/ResModel";
 import RightService from "../services/RightService";
 import RoleService from "../services/RoleService";
+import { Model } from "sequelize";
 
 export const getService = (serviceName: string) => {
   const servicePath = path.join(__dirname, "..", "services", serviceName);
@@ -58,13 +59,13 @@ const Invocation = (
       try {
         const pass: boolean = await authFn(ctx, serviceName, actionName);
         if (pass) {
-          const res = origFunc.apply(serviceModule, args);
+          const res = await origFunc.apply(serviceModule, args);
           return res;
         }
       } catch (err) {
         console.log(err);
         // return new ErrorModel("该角色权限验证失败");
-        throw new Error("该角色权限验证失败");
+        throw new Error((err as any).toString());
       }
     };
   };
@@ -79,11 +80,14 @@ const authFn = async (
     throw new Error("没有角色信息");
   }
   // 验证权限
-  const authRes = await RightService.authRight(serviceName, actionName);
+  const authRes: Model | null = await RightService.authRight(
+    serviceName,
+    actionName
+  );
   if (!authRes) {
-    throw new Error("没有该权限信息");
+    throw new Error("该service或action信息没有被找到");
   }
-  const right_id: number = authRes.id;
+  const right_id: number = authRes.dataValues.id;
 
   const roleRes = await RoleService.findRoleById(ctx.userInfo["role_id"]);
   if (!roleRes || !roleRes.dataValues) {
