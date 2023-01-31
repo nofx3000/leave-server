@@ -1,10 +1,9 @@
 import seq from "../db/seq";
-import Right from "../db/models/right.model";
 class RightService {
   static RightService: RightService = new RightService();
   private Right = seq.models.Right;
-  public async authRight(serviceName: string, actionName: string) {
-    const res = await Right.findOne({
+  async authRight(serviceName: string, actionName: string) {
+    const res = await this.Right.findOne({
       where: {
         service_name: serviceName,
         service_action: actionName,
@@ -12,6 +11,9 @@ class RightService {
     });
     console.log(res);
     return res;
+  }
+  async findAllRights() {
+    return await this.Right.findAll();
   }
 }
 

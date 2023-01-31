@@ -9,19 +9,9 @@ const router = new Router();
 
 router.prefix("/api/user");
 
-// router.post("/login", async (ctx: Context) => {
-//   const { username, password } = ctx.request.body as UserInfoInter;
-//   console.log(ctx.request.body);
-//   const res = await UserController.login({ username, password });
-//   if (res instanceof ErrorModel) {
-//     ctx.status = 401;
-//   }
-//   ctx.body = res;
-// });
-
 router.post("/create", async (ctx: Context) => {
   const userinfo: UserInfoInter = ctx.request.body as any;
-  ctx.body = await UserController.createUser(ctx)(userinfo);
+  ctx.body = await UserController.createUser(userinfo)(ctx);
 });
 
 router.get("/verify1", async (ctx: Context) => {
@@ -38,6 +28,5 @@ router.get("/verify1", async (ctx: Context) => {
   }
   ctx.body = res;
 });
-
 
 export default router;

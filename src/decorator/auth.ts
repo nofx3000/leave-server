@@ -59,12 +59,12 @@ const Invocation = (
         const pass: boolean = await authFn(ctx, serviceName, actionName);
         if (pass) {
           const res = origFunc.apply(serviceModule, args);
-          return res
+          return res;
         }
       } catch (err) {
         console.log(err);
         // return new ErrorModel("该角色权限验证失败");
-        throw new Error("该角色权限验证失败")
+        throw new Error("该角色权限验证失败");
       }
     };
   };
@@ -84,7 +84,7 @@ const authFn = async (
     throw new Error("没有该权限信息");
   }
   const right_id: number = authRes.id;
-  
+
   const roleRes = await RoleService.findRoleById(ctx.userInfo["role_id"]);
   if (!roleRes || !roleRes.dataValues) {
     throw new Error("没有角色信息");
@@ -94,7 +94,7 @@ const authFn = async (
   for (const k in rightList) {
     const right_id_in_list: string = rightList[k];
     if (parseInt(right_id_in_list) === right_id) {
-      console.log('++++++++++++++++++++++   角色鑒權通過');
+      console.log("++++++++++++++++++++++   角色鑒權通過");
       return true;
     }
   }

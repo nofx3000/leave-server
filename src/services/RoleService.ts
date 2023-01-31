@@ -8,7 +8,6 @@ class RoleService {
         id: role_id,
       },
     });
-    console.log(res);
     return res;
   }
 }

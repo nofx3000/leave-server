@@ -12,6 +12,8 @@ import { SECRET_KEY } from "./src/conf/jwt";
 import index from "./src/routes/index";
 import login from "./src/routes/login";
 import user from "./src/routes/user";
+import menu from "./src/routes/menu";
+import { ErrorModel } from "./src/resmodel/ResModel";
 
 // error handler
 // onerror(app);
@@ -44,22 +46,20 @@ app.use(async (ctx: Context, next: Next) => {
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
 });
 
-// 添加临时ctx，以供routers向controller传递ctx
-app.use((ctx: Context, next: Next) => {
-  (global as any).tmp_ctx = null
-  next()
-})
-
 app.use(login.routes());
 app.use(login.allowedMethods());
 
+// 解析token并在ctx上添加userinfo
 app.use(async (ctx: Context, next: Next) => {
   const token = ctx.header.authorization;
   if (token) {
     const decode = jwt.verify(token.split(" ")[1], SECRET_KEY);
     ctx.userInfo = decode;
+    await next();
+  } else {
+    ctx.status = 401;
+    ctx.body = new ErrorModel("没有登陆");
   }
-  next();
 });
 
 // routes
@@ -67,6 +67,8 @@ app.use(index.routes());
 app.use(index.allowedMethods());
 app.use(user.routes());
 app.use(user.allowedMethods());
+app.use(menu.routes());
+app.use(menu.allowedMethods());
 
 // error-handling
 app.on("error", (err: Error, ctx: Context) => {

@@ -3,8 +3,7 @@ import { SuccessModel, ErrorModel } from "../resmodel/ResModel";
 import { LoginInter, UserInfoInter } from "../interface/UserInterface";
 import jwt from "jsonwebtoken";
 import { SECRET_KEY } from "../conf/jwt";
-import UserService from '../services/UserService'
-
+import UserService from "../services/UserService";
 
 class LoginController {
   static LoginController: LoginController = new LoginController();
@@ -15,7 +14,6 @@ class LoginController {
         return new ErrorModel("user not found");
       }
       const { dataValues } = userinfo;
-      // console.log(dataValues);
       let token: any;
       token = jwt.sign(dataValues, SECRET_KEY, {
         expiresIn: "24h",

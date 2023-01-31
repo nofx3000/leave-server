@@ -15,17 +15,13 @@ export default class Right extends Model {
   pid!: number;
 
   @Column
-  method!: MethodType;
-
-  @Column
-  path!: string;
-
-  @Column
   service_name!: string;
 
   @Column
   service_action!: string;
 
-  @Column
+  @Column({
+    defaultValue: false,
+  })
   is_menu!: boolean;
 }

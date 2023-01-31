@@ -10,13 +10,12 @@ router.prefix("/api/login");
 
 router.post("/", async (ctx: Context) => {
   const { username, password } = ctx.request.body as UserInfoInter;
-  console.log(ctx.request.body);
   const res = await LoginController.login({ username, password });
-  console.log('======', res);
-  
   if (res instanceof ErrorModel) {
     ctx.status = 401;
   }
+  console.log(res);
+
   ctx.body = res;
 });
 
