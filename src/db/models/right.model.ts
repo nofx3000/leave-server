@@ -20,8 +20,6 @@ export default class Right extends Model {
   @Column
   service_action!: string;
 
-  @Column({
-    defaultValue: false,
-  })
-  is_menu!: boolean;
+  @Column
+  is_menu!: string;
 }

@@ -15,6 +15,7 @@ import login from "./src/routes/login";
 import user from "./src/routes/user";
 import menu from "./src/routes/menu";
 import role from "./src/routes/role";
+import right from "./src/routes/right";
 
 // error handler
 // onerror(app);
@@ -72,6 +73,8 @@ app.use(menu.routes());
 app.use(menu.allowedMethods());
 app.use(role.routes());
 app.use(role.allowedMethods());
+app.use(right.routes());
+app.use(right.allowedMethods());
 
 // error-handling
 app.on("error", (err: Error, ctx: Context) => {

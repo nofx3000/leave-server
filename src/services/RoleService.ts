@@ -3,6 +3,7 @@ import { RoleInter } from "../interface/RoleInterface";
 class RoleService {
   static RoleService: RoleService = new RoleService();
   private Role = seq.models.Role;
+  // authRight装饰器中使用，不需添加至权限数据库
   public async findRoleById(role_id: number) {
     const res = await this.Role.findOne({
       where: {

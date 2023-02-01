@@ -4,5 +4,5 @@ export interface RightInter {
   pid: number;
   service_name?: string;
   service_action?: string;
-  is_menu?: boolean;
+  is_menu?: string;
 }

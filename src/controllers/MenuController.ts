@@ -13,7 +13,7 @@ class MenuController {
       const rightObj: RightInter = cur.dataValues;
       if (rightObj && rightObj.is_menu && rightObj.pid === 0) {
         acc[rightObj.id] = {
-          key: rightObj.id,
+          key: rightObj.is_menu,
           children: [],
           label: rightObj.right_name,
         };
@@ -27,7 +27,7 @@ class MenuController {
       const rightObj = right.dataValues;
       if (rightObj && rightObj.is_menu && rightObj.pid !== 0) {
         allMenuObj[rightObj.pid].children.push({
-          key: rightObj.id,
+          key: rightObj.is_menu,
           label: rightObj.right_name,
         });
       }
