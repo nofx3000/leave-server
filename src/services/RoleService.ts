@@ -13,6 +13,14 @@ class RoleService {
     return res;
   }
 
+  async getRole(role_id: number) {
+    return await this.Role.findOne({
+      where: {
+        id: role_id,
+      },
+    });
+  }
+
   async getRolesList() {
     return await this.Role.findAll();
   }

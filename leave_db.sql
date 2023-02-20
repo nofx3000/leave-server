@@ -11,7 +11,7 @@
  Target Server Version : 80031
  File Encoding         : 65001
 
- Date: 01/02/2023 17:08:17
+ Date: 20/02/2023 17:13:53
 */
 
 SET NAMES utf8mb4;
@@ -54,6 +54,7 @@ INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `ser
 INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (17, '添加权限', 5, NULL, 'rightService', 'addRight');
 INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (18, '修改权限', 5, NULL, 'rightService', 'updateRight');
 INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (19, '删除权限', 5, NULL, 'rightService', 'delRight');
+INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (20, '查询单个角色', 6, NULL, 'roleService', 'getRole');
 COMMIT;
 
 -- ----------------------------
@@ -71,7 +72,7 @@ CREATE TABLE `Roles` (
 -- Records of Roles
 -- ----------------------------
 BEGIN;
-INSERT INTO `Roles` (`id`, `role_name`, `right_list`) VALUES (1, 'admin', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19');
+INSERT INTO `Roles` (`id`, `role_name`, `right_list`) VALUES (1, 'admin1', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20');
 INSERT INTO `Roles` (`id`, `role_name`, `right_list`) VALUES (2, 'enginner', '1,2,3');
 COMMIT;
 
@@ -89,14 +90,13 @@ CREATE TABLE `Users` (
   PRIMARY KEY (`id`),
   KEY `role_id` (`role_id`),
   CONSTRAINT `users_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `Roles` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of Users
 -- ----------------------------
 BEGIN;
-INSERT INTO `Users` (`id`, `username`, `password`, `realname`, `catagory`, `role_id`) VALUES (1, 'admin', '123456', 'dh', 0, 1);
-INSERT INTO `Users` (`id`, `username`, `password`, `realname`, `catagory`, `role_id`) VALUES (2, 'dh2', '123', 'dh2', 1, 2);
+INSERT INTO `Users` (`id`, `username`, `password`, `realname`, `catagory`, `role_id`) VALUES (1, 'admin', '123', 'dh', 0, 1);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

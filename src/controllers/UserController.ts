@@ -56,7 +56,6 @@ class UserController {
   }
 
   async verify(token: string) {
-    console.log(token);
     try {
       const decode = jwt.verify(token.split(" ")[1], SECRET_KEY);
       return new SuccessModel(decode);

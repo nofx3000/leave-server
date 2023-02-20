@@ -14,8 +14,6 @@ router.post("/", async (ctx: Context) => {
   if (res instanceof ErrorModel) {
     ctx.status = 401;
   }
-  console.log(res);
-
   ctx.body = res;
 });
 

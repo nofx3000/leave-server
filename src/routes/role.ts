@@ -11,6 +11,11 @@ router.get("/", async (ctx: Context) => {
   ctx.body = await RoleController.getRolesList()(ctx);
 });
 
+router.get("/:role_id", async (ctx: Context) => {
+  const { role_id } = ctx.params;
+  ctx.body = await RoleController.getRole(role_id)(ctx);
+});
+
 router.post("/", async (ctx: Context) => {
   const roleinfo: RoleInter = ctx.request.body as any;
   ctx.body = await RoleController.addRole(roleinfo)(ctx);

@@ -20,6 +20,17 @@ class RoleController {
     };
   }
 
+  getRole(role_id: number) {
+    return async (ctx: Context) => {
+      try {
+        const res = await RoleService.getRole(role_id)(ctx);
+        return new SuccessModel(res);
+      } catch (error) {
+        return new ErrorModel((error as any).toString());
+      }
+    };
+  }
+
   addRole(roleinfo: RoleInter) {
     return async (ctx: Context) => {
       try {

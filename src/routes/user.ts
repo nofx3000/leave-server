@@ -29,6 +29,8 @@ router.delete("/:user_id", async (ctx: Context) => {
 });
 
 router.get("/verify1", async (ctx: Context) => {
+  console.log("........");
+
   const token = ctx.header.authorization;
   if (!token) {
     console.log("untoken");
