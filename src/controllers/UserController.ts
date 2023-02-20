@@ -55,6 +55,7 @@ class UserController {
     };
   }
 
+<<<<<<< HEAD
   async verify(token: string) {
     try {
       const decode = jwt.verify(token.split(" ")[1], SECRET_KEY);
@@ -63,6 +64,8 @@ class UserController {
       return new ErrorModel((error as any).toString());
     }
   }
+=======
+>>>>>>> a5bf38ad6a866f09bce5aedeea50cf071f310c77
 }
 
 export default UserController.UserController;

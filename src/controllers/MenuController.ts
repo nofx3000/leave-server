@@ -32,7 +32,10 @@ class MenuController {
         });
       }
     });
+<<<<<<< HEAD
 
+=======
+>>>>>>> a5bf38ad6a866f09bce5aedeea50cf071f310c77
     let rawRoleRightList: Model | null = await RoleService.findRoleById(
       role_id
     );

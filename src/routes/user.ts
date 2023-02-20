@@ -28,6 +28,7 @@ router.delete("/:user_id", async (ctx: Context) => {
   ctx.body = await UserController.delUser(user_id)(ctx);
 });
 
+<<<<<<< HEAD
 router.get("/verify1", async (ctx: Context) => {
   console.log("........");
 
@@ -44,5 +45,7 @@ router.get("/verify1", async (ctx: Context) => {
   }
   ctx.body = res;
 });
+=======
+>>>>>>> a5bf38ad6a866f09bce5aedeea50cf071f310c77
 
 export default router;
