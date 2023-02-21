@@ -2,36 +2,19 @@ import { SuccessModel, ErrorModel } from "../resmodel/ResModel";
 import RightService from "../services/RightService";
 import RoleService from "../services/RoleService";
 import { RightInter } from "../interface/RightInterface";
+import { listToMap } from "../utils/formatter";
 import { Model } from "sequelize";
 
 class MenuController {
   static MenuController: MenuController = new MenuController();
   async getMenuList(role_id: number) {
+    // 获取所有权限列表
     const rawAllRightList: Model[] = await RightService.findAllRights();
-    // 处理一级菜单
-    const allMenuObj = rawAllRightList.reduce((acc: any, cur) => {
-      const rightObj: RightInter = cur.dataValues;
-      if (rightObj && rightObj.is_menu && rightObj.pid === 0) {
-        acc[rightObj.id] = {
-          key: rightObj.is_menu,
-          children: [],
-          label: rightObj.right_name,
-        };
-        return acc;
-      } else {
-        return acc;
-      }
-    }, {});
-    // 处理二级菜单
-    rawAllRightList.forEach((right: Model) => {
-      const rightObj = right.dataValues;
-      if (rightObj && rightObj.is_menu && rightObj.pid !== 0) {
-        allMenuObj[rightObj.pid].children.push({
-          key: rightObj.is_menu,
-          label: rightObj.right_name,
-        });
-      }
-    });
+    const allRightList: RightInter[] = rawAllRightList.map(
+      (rawData) => rawData.dataValues
+    );
+    const allRightMap = listToMap<RightInter>(allRightList);
+    // 获取某一角色权限列表
     let rawRoleRightList: Model | null = await RoleService.findRoleById(
       role_id
     );
@@ -40,14 +23,35 @@ class MenuController {
       // 角色权限列表字符串转换为数组
       const roleRightIdList: string[] =
         rawRoleRightList.dataValues.right_list.split(",");
-      roleRightIdList.forEach((id) => {
-        if (allMenuObj[id]) {
-          userMenuObj[id] = allMenuObj[id];
+      // 处理一级菜单
+      roleRightIdList.forEach((id: any) => {
+        if (allRightMap[id]) {
+          const right = allRightMap[id];
+          if (right.pid === 0 && right.is_menu) {
+            userMenuObj[id] = {
+              key: right.is_menu,
+              children: [],
+              label: right.right_name,
+            };
+          }
+        }
+      });
+      // 处理二级菜单
+      roleRightIdList.forEach((id: any) => {
+        if (allRightMap[id]) {
+          const right = allRightMap[id];
+          if (right.pid !== 0 && right.is_menu) {
+            userMenuObj[right.pid].children.push({
+              key: right.is_menu,
+              label: right.right_name,
+            });
+          }
         }
       });
     } else {
       return new ErrorModel("获取角色权限失败");
     }
+    console.log("userMenuObj", userMenuObj);
 
     return new SuccessModel(userMenuObj);
   }

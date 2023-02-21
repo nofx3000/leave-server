@@ -85,7 +85,7 @@ const authFn = async (
     actionName
   );
   if (!authRes) {
-    throw new Error("该service或action信息没有被找到");
+    throw new Error(`${serviceName}或${actionName}信息没有被找到`);
   }
   const right_id: number = authRes.dataValues.id;
 
@@ -102,5 +102,5 @@ const authFn = async (
       return true;
     }
   }
-  throw new Error("没有权限");
+  throw new Error(`该用户没有${serviceName}中${actionName}的权限`);
 };
