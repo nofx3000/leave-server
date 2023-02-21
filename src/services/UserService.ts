@@ -4,9 +4,18 @@ import Role from "../db/models/role.model";
 class UserService {
   static UserService: UserService = new UserService();
   private User = seq.models.User;
+  private Division = seq.models.Division;
 
   async getUsersList() {
     return await this.User.findAll();
+  }
+
+  async getUsersListByDivision() {
+    return await this.Division.findAll({
+      include: {
+        model: this.User,
+      },
+    });
   }
 
   async findUser(logininfo: LoginInter) {

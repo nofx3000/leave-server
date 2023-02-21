@@ -98,7 +98,9 @@ const authFn = async (
   for (const k in rightList) {
     const right_id_in_list: string = rightList[k];
     if (parseInt(right_id_in_list) === right_id) {
-      console.log("++++++++++++++++++++++   角色鑒權通過");
+      console.log(
+        `++++++++++++++++++++++   角色${serviceName}中${actionName}的鑒權通過`
+      );
       return true;
     }
   }

@@ -16,6 +16,7 @@ import user from "./src/routes/user";
 import menu from "./src/routes/menu";
 import role from "./src/routes/role";
 import right from "./src/routes/right";
+import task from "./src/routes/task";
 
 // error handler
 // onerror(app);
@@ -75,6 +76,8 @@ app.use(role.routes());
 app.use(role.allowedMethods());
 app.use(right.routes());
 app.use(right.allowedMethods());
+app.use(task.routes());
+app.use(task.allowedMethods());
 
 // error-handling
 app.on("error", (err: Error, ctx: Context) => {

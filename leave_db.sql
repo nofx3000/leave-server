@@ -11,11 +11,32 @@
  Target Server Version : 80031
  File Encoding         : 65001
 
- Date: 20/02/2023 17:13:53
+ Date: 21/02/2023 16:39:34
 */
 
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
+
+-- ----------------------------
+-- Table structure for Divisions
+-- ----------------------------
+DROP TABLE IF EXISTS `Divisions`;
+CREATE TABLE `Divisions` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `realname` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- ----------------------------
+-- Records of Divisions
+-- ----------------------------
+BEGIN;
+INSERT INTO `Divisions` (`id`, `realname`) VALUES (1, '一中队');
+INSERT INTO `Divisions` (`id`, `realname`) VALUES (2, '二中队');
+INSERT INTO `Divisions` (`id`, `realname`) VALUES (3, '三中队');
+INSERT INTO `Divisions` (`id`, `realname`) VALUES (4, '四中队');
+INSERT INTO `Divisions` (`id`, `realname`) VALUES (5, '技术室');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for Rights
@@ -29,7 +50,7 @@ CREATE TABLE `Rights` (
   `service_name` varchar(255) DEFAULT NULL,
   `service_action` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of Rights
@@ -44,7 +65,7 @@ INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `ser
 INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (7, '登陆', 0, NULL, 'userService', 'findUser');
 INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (8, '添加用户', 4, NULL, 'userService', 'createUser');
 INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (9, '修改用户', 4, NULL, 'userService', 'updateUser');
-INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (10, '用户列表', 4, '/userList', 'userService', 'getUsersList');
+INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (10, '用户列表（无建制）', 4, '/userList', 'userService', 'getUsersList');
 INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (11, '删除用户', 4, NULL, 'userService', 'delUser');
 INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (12, '角色列表', 6, '/roleList', 'roleService', 'getRolesList');
 INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (13, '添加角色', 6, NULL, 'roleService', 'addRole');
@@ -55,6 +76,12 @@ INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `ser
 INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (18, '修改权限', 5, NULL, 'rightService', 'updateRight');
 INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (19, '删除权限', 5, NULL, 'rightService', 'delRight');
 INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (20, '查询单个角色', 6, NULL, 'roleService', 'getRole');
+INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (21, '任务列表', 3, '/taskList', 'taskService', 'getTasksList');
+INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (22, '查询单个任务', 3, NULL, 'taskService', 'getTask');
+INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (23, '添加任务', 3, NULL, 'taskService', 'addTask');
+INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (24, '修改任务', 3, NULL, 'taskService', 'updateTask');
+INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (25, '删除任务', 3, NULL, 'taskService', 'delTask');
+INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (26, '用户列表（按中队）', 4, NULL, 'userService', 'getUsersListByDivision');
 COMMIT;
 
 -- ----------------------------
@@ -66,14 +93,33 @@ CREATE TABLE `Roles` (
   `role_name` varchar(255) NOT NULL,
   `right_list` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of Roles
 -- ----------------------------
 BEGIN;
-INSERT INTO `Roles` (`id`, `role_name`, `right_list`) VALUES (1, 'admin1', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20');
+INSERT INTO `Roles` (`id`, `role_name`, `right_list`) VALUES (1, 'admin1', '1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26');
 INSERT INTO `Roles` (`id`, `role_name`, `right_list`) VALUES (2, 'enginner', '1,2,3');
+INSERT INTO `Roles` (`id`, `role_name`, `right_list`) VALUES (4, 't', '1,2,3,4,6,8,9,10,11,12,13,14,15,16,20');
+COMMIT;
+
+-- ----------------------------
+-- Table structure for Tasks
+-- ----------------------------
+DROP TABLE IF EXISTS `Tasks`;
+CREATE TABLE `Tasks` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `task_name` varchar(255) NOT NULL,
+  `operator_list` varchar(255) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- ----------------------------
+-- Records of Tasks
+-- ----------------------------
+BEGIN;
+INSERT INTO `Tasks` (`id`, `task_name`, `operator_list`) VALUES (1, 'test1', '1,13');
 COMMIT;
 
 -- ----------------------------
@@ -87,16 +133,20 @@ CREATE TABLE `Users` (
   `realname` varchar(255) NOT NULL,
   `catagory` int NOT NULL,
   `role_id` int DEFAULT NULL,
+  `division_id` int DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `role_id` (`role_id`),
-  CONSTRAINT `users_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `Roles` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `division_id` (`division_id`),
+  CONSTRAINT `users_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `Roles` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `users_ibfk_2` FOREIGN KEY (`division_id`) REFERENCES `Divisions` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of Users
 -- ----------------------------
 BEGIN;
-INSERT INTO `Users` (`id`, `username`, `password`, `realname`, `catagory`, `role_id`) VALUES (1, 'admin', '123', 'dh', 0, 1);
+INSERT INTO `Users` (`id`, `username`, `password`, `realname`, `catagory`, `role_id`, `division_id`) VALUES (1, 'admin', '123', 'dd', 0, 1, 2);
+INSERT INTO `Users` (`id`, `username`, `password`, `realname`, `catagory`, `role_id`, `division_id`) VALUES (13, 't', '123', 't', 0, 4, 1);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;

@@ -12,6 +12,10 @@ router.get("/", async (ctx: Context) => {
   ctx.body = await UserController.getUsersList()(ctx);
 });
 
+router.get("/division", async (ctx: Context) => {
+  ctx.body = await UserController.getUsersListByDivision()(ctx);
+});
+
 router.post("/create", async (ctx: Context) => {
   const userinfo: UserInfoInter = ctx.request.body as any;
   ctx.body = await UserController.createUser(userinfo)(ctx);

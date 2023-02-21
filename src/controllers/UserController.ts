@@ -22,6 +22,17 @@ class UserController {
     };
   }
 
+  getUsersListByDivision() {
+    return async (ctx: Context) => {
+      try {
+        const res = await UserService.getUsersListByDivision()(ctx);
+        return new SuccessModel(res);
+      } catch (error) {
+        return new ErrorModel((error as any).toString());
+      }
+    };
+  }
+
   createUser(userinfo: UserInfoInter) {
     return async (ctx: Context) => {
       try {

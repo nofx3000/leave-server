@@ -6,6 +6,7 @@ import {
   ForeignKey,
 } from "sequelize-typescript";
 import Role from "./role.model";
+import Division from "./division.model";
 
 @Table({
   timestamps: false,
@@ -37,4 +38,11 @@ export default class User extends Model {
 
   @BelongsTo(() => Role)
   role!: Role;
+
+  @ForeignKey(() => Division)
+  @Column
+  division_id!: number;
+
+  @BelongsTo(() => Division)
+  division!: Division;
 }
