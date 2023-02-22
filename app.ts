@@ -17,6 +17,7 @@ import menu from "./src/routes/menu";
 import role from "./src/routes/role";
 import right from "./src/routes/right";
 import task from "./src/routes/task";
+import leave from "./src/routes/leave";
 
 // error handler
 // onerror(app);
@@ -78,6 +79,8 @@ app.use(right.routes());
 app.use(right.allowedMethods());
 app.use(task.routes());
 app.use(task.allowedMethods());
+app.use(leave.routes());
+app.use(leave.allowedMethods());
 
 // error-handling
 app.on("error", (err: Error, ctx: Context) => {

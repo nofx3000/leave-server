@@ -3,6 +3,7 @@ import RoleModel from "./role.model";
 import RightModel from "./right.model";
 import Task from "./task.model";
 import Division from "./division.model";
+import Leave from "./leave.model";
 
 export default {
   UserModel,
@@ -10,4 +11,5 @@ export default {
   RightModel,
   Task,
   Division,
+  Leave,
 };
