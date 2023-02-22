@@ -18,6 +18,7 @@ class MenuController {
     let rawRoleRightList: Model | null = await RoleService.findRoleById(
       role_id
     );
+
     const userMenuObj: any = {};
     if (rawRoleRightList) {
       // 角色权限列表字符串转换为数组
@@ -40,7 +41,7 @@ class MenuController {
       roleRightIdList.forEach((id: any) => {
         if (allRightMap[id]) {
           const right = allRightMap[id];
-          if (right.pid !== 0 && right.is_menu) {
+          if (right.pid !== 0 && right.is_menu && userMenuObj[right.pid]) {
             userMenuObj[right.pid].children.push({
               key: right.is_menu,
               label: right.right_name,
