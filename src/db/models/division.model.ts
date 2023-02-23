@@ -11,5 +11,5 @@ export default class Division extends Model {
   realname!: string;
 
   @HasMany(() => User)
-  people!: User[];
+  users!: User[];
 }

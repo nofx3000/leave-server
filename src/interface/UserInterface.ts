@@ -1,13 +1,17 @@
 import { RoleInter } from "./RoleInterface";
-
+import { LeaveInter } from "./LeaveInterface";
+import { DivisionInter } from "./DivisionInterface";
 export interface UserInfoInter {
-  id?: number;
+  id: number;
   username: string;
   password: string;
-  realname: string;
-  catagory: string;
   role_id: number;
+  realname: string;
+  catagory: number;
+  division_id: number;
   role?: RoleInter;
+  leaves?: LeaveInter[];
+  division?: DivisionInter;
 }
 
 export interface LoginInter {

@@ -5,9 +5,31 @@ class LeaveService {
   private Leave = seq.models.Leave;
   private Division = seq.models.Division;
   private User = seq.models.User;
+  private Task = seq.models.Task;
 
   async getLeavesList() {
-    return await this.Leave.findAll();
+    return await this.Leave.findAll({
+      include: [
+        {
+          model: this.User,
+          as: "user",
+          include: [
+            {
+              model: this.Division,
+              as: "division",
+            },
+          ],
+        },
+        {
+          model: this.Task,
+        },
+      ],
+      order: [
+        ["user", "division", "id", "ASC"],
+        ["user", "id", "ASC"],
+        ["created_at", "ASC"],
+      ],
+    });
   }
 
   async getLeavesListByDivision(division_id: number) {
