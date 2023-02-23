@@ -11,7 +11,7 @@
  Target Server Version : 80031
  File Encoding         : 65001
 
- Date: 23/02/2023 16:18:10
+ Date: 23/02/2023 17:14:44
 */
 
 SET NAMES utf8mb4;
@@ -44,8 +44,8 @@ COMMIT;
 DROP TABLE IF EXISTS `Leaves`;
 CREATE TABLE `Leaves` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `length` int NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT '2023-02-23 02:54:12',
+  `length` float NOT NULL,
+  `created_at` datetime NOT NULL DEFAULT '2023-02-23 08:57:39',
   `user_id` int DEFAULT NULL,
   `task_id` int DEFAULT NULL,
   `comment` varchar(255) DEFAULT NULL,
@@ -53,9 +53,9 @@ CREATE TABLE `Leaves` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `task_id` (`task_id`),
-  CONSTRAINT `leaves_ibfk_5` FOREIGN KEY (`user_id`) REFERENCES `Users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `leaves_ibfk_6` FOREIGN KEY (`task_id`) REFERENCES `Tasks` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `leaves_ibfk_7` FOREIGN KEY (`user_id`) REFERENCES `Users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `leaves_ibfk_8` FOREIGN KEY (`task_id`) REFERENCES `Tasks` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of Leaves
@@ -63,7 +63,6 @@ CREATE TABLE `Leaves` (
 BEGIN;
 INSERT INTO `Leaves` (`id`, `length`, `created_at`, `user_id`, `task_id`, `comment`, `approved`) VALUES (1, 10, '2023-02-22 07:39:25', 1, 1, NULL, 0);
 INSERT INTO `Leaves` (`id`, `length`, `created_at`, `user_id`, `task_id`, `comment`, `approved`) VALUES (4, 8, '2023-02-22 09:12:41', 1, 1, NULL, 0);
-INSERT INTO `Leaves` (`id`, `length`, `created_at`, `user_id`, `task_id`, `comment`, `approved`) VALUES (5, 0, '2023-02-23 08:15:59', NULL, NULL, NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -176,8 +175,8 @@ CREATE TABLE `Users` (
   PRIMARY KEY (`id`),
   KEY `role_id` (`role_id`),
   KEY `division_id` (`division_id`),
-  CONSTRAINT `users_ibfk_10` FOREIGN KEY (`division_id`) REFERENCES `Divisions` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `users_ibfk_9` FOREIGN KEY (`role_id`) REFERENCES `Roles` (`id`) ON UPDATE CASCADE
+  CONSTRAINT `users_ibfk_11` FOREIGN KEY (`role_id`) REFERENCES `Roles` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `users_ibfk_12` FOREIGN KEY (`division_id`) REFERENCES `Divisions` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------

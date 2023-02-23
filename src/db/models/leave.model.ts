@@ -4,6 +4,7 @@ import {
   Model,
   BelongsTo,
   ForeignKey,
+  DataType,
 } from "sequelize-typescript";
 import User from "./user.model";
 import Task from "./task.model";
@@ -14,6 +15,7 @@ import Task from "./task.model";
 export default class Leave extends Model {
   @Column({
     allowNull: false,
+    type: DataType.FLOAT,
   })
   length!: number;
 
