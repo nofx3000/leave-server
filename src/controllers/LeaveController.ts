@@ -55,7 +55,10 @@ class LeaveController {
     };
   }
 
-  addLeave(leaveinfo: LeaveInter) {
+  addLeave(leaveinfo: LeaveInter & {operator_list?: string}) {
+    if (!leaveinfo.operator_list) {
+      return new ErrorModel('没有选择作业员');
+    }
     return async (ctx: Context) => {
       try {
         const res = await LeaveService.addLeave(leaveinfo)(ctx);

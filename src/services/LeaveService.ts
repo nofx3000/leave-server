@@ -25,6 +25,7 @@ class LeaveService {
         },
       ],
       order: [
+        ["approved", "ASC"],
         ["user", "division", "id", "ASC"],
         ["user", "id", "ASC"],
         ["created_at", "ASC"],
