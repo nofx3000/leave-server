@@ -68,7 +68,23 @@ class LeaveService {
     });
   }
 
-  async addLeave(leaveinfo: LeaveInter) {
+  async addLeaves(leaveinfo: LeaveInter & { operator_list?: string }) {
+    const { operator_list } = leaveinfo;
+    const user_id_list: number[] | undefined = operator_list
+      ?.trim()
+      .split(",")
+      .map((id_string) => parseInt(id_string));
+    console.log("user_id_list", user_id_list);
+
+    const leavesinfo: LeaveInter[] | undefined = user_id_list?.map((id) => {
+      const _leaveinfo = Object.assign({}, leaveinfo);
+      _leaveinfo.user_id = id;
+      return _leaveinfo;
+    });
+    return await this.Leave.bulkCreate(leavesinfo as any);
+  }
+
+  async addLeave(user_id: number, leaveinfo: LeaveInter) {
     return await this.Leave.create(leaveinfo as any);
   }
 

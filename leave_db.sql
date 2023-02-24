@@ -11,7 +11,7 @@
  Target Server Version : 80031
  File Encoding         : 65001
 
- Date: 23/02/2023 17:14:44
+ Date: 24/02/2023 16:39:28
 */
 
 SET NAMES utf8mb4;
@@ -55,7 +55,7 @@ CREATE TABLE `Leaves` (
   KEY `task_id` (`task_id`),
   CONSTRAINT `leaves_ibfk_7` FOREIGN KEY (`user_id`) REFERENCES `Users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `leaves_ibfk_8` FOREIGN KEY (`task_id`) REFERENCES `Tasks` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of Leaves
@@ -63,6 +63,9 @@ CREATE TABLE `Leaves` (
 BEGIN;
 INSERT INTO `Leaves` (`id`, `length`, `created_at`, `user_id`, `task_id`, `comment`, `approved`) VALUES (1, 10, '2023-02-22 07:39:25', 1, 1, NULL, 0);
 INSERT INTO `Leaves` (`id`, `length`, `created_at`, `user_id`, `task_id`, `comment`, `approved`) VALUES (4, 8, '2023-02-22 09:12:41', 1, 1, NULL, 0);
+INSERT INTO `Leaves` (`id`, `length`, `created_at`, `user_id`, `task_id`, `comment`, `approved`) VALUES (13, 0.5, '2023-02-24 08:38:24', 14, 1, NULL, 0);
+INSERT INTO `Leaves` (`id`, `length`, `created_at`, `user_id`, `task_id`, `comment`, `approved`) VALUES (14, 0.5, '2023-02-24 08:38:24', 13, 1, NULL, 0);
+INSERT INTO `Leaves` (`id`, `length`, `created_at`, `user_id`, `task_id`, `comment`, `approved`) VALUES (15, 0.5, '2023-02-24 08:38:24', 1, 1, NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -113,7 +116,7 @@ INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `ser
 INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (28, '查看分队调休申请', 1, '/leaveListDivision', 'leaveService', 'getLeavesListByDivision');
 INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (29, '查看本人调休申请', 1, '/leaveListUser', 'leaveService', 'getLeavesListByUser');
 INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (30, '获取单条调休申请', 1, NULL, 'leaveService', 'getLeave');
-INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (31, '申请个人调休', 1, NULL, 'leaveService', 'addLeave');
+INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (31, '申请多人调休', 1, NULL, 'leaveService', 'addLeaves');
 INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (32, '为指定用户申请调休', 1, NULL, 'leaveService', 'addUserLeave');
 INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (33, '修改调休申请', 1, NULL, 'leaveService', 'updateLeave');
 INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (34, '删除调休申请', 1, NULL, 'leaveService', 'delLeave');

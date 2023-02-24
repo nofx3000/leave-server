@@ -55,13 +55,13 @@ class LeaveController {
     };
   }
 
-  addLeave(leaveinfo: LeaveInter & {operator_list?: string}) {
-    if (!leaveinfo.operator_list) {
-      return new ErrorModel('没有选择作业员');
-    }
+  addLeaves(leaveinfo: LeaveInter & { operator_list?: string }) {
     return async (ctx: Context) => {
+      if (!leaveinfo.operator_list) {
+        return new ErrorModel("没有选择作业员");
+      }
       try {
-        const res = await LeaveService.addLeave(leaveinfo)(ctx);
+        const res = await LeaveService.addLeaves(leaveinfo)(ctx);
         return new SuccessModel(res);
       } catch (error) {
         return new ErrorModel((error as any).toString());
