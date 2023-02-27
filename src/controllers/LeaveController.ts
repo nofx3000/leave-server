@@ -108,8 +108,12 @@ class LeaveController {
   approveLeave(leave_id: number, approved: boolean) {
     return async (ctx: Context) => {
       try {
-        const res = await LeaveService.approveLeave(leave_id, approved)(ctx);
-        return new SuccessModel(0, res);
+        const res = await LeaveService.approveLeave(leave_id, approved)(ctx); // [0] or [1]
+        if (res[0] > 0) {
+          return new SuccessModel(0, res);
+        } else {
+          return new ErrorModel("审核状态修改失败");
+        }
       } catch (error) {
         return new ErrorModel((error as any).toString());
       }

@@ -52,7 +52,7 @@ router.delete("/:leave_id", async (ctx: Context) => {
 });
 
 router.patch("/:leave_id", async (ctx: Context) => {
-  const approved: any = ctx.request.body;
+  const { approved } = ctx.request.body as any;
   const { leave_id } = ctx.params;
   ctx.body = await LeaveController.approveLeave(leave_id, approved)(ctx);
 });

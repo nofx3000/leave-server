@@ -29,6 +29,9 @@ class UserService {
         {
           model: Role,
         },
+        {
+          model: this.Division,
+        },
       ],
     });
     return res;

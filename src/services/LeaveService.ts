@@ -34,30 +34,62 @@ class LeaveService {
   }
 
   async getLeavesListByDivision(division_id: number) {
-    return await this.Division.findAll({
-      where: {
-        id: division_id,
-      },
-      include: {
-        model: this.User,
-        include: [
-          {
-            model: this.Leave,
+    return await this.Leave.findAll({
+      include: [
+        {
+          model: this.User,
+          where: {
+            division_id,
           },
-        ],
-      },
+          as: "user",
+          include: [
+            {
+              model: this.Division,
+              as: "division",
+            },
+          ],
+        },
+        {
+          model: this.Task,
+        },
+      ],
+      order: [
+        ["approved", "ASC"],
+        ["user", "division", "id", "ASC"],
+        ["user", "id", "ASC"],
+        ["created_at", "ASC"],
+      ],
     });
   }
 
   async getLeavesListByUser(user_id: number) {
-    return await this.User.findOne({
+    const res = await this.Leave.findAll({
       where: {
-        id: user_id,
+        user_id,
       },
-      include: {
-        model: this.Leave,
-      },
+      include: [
+        {
+          model: this.User,
+          as: "user",
+          include: [
+            {
+              model: this.Division,
+              as: "division",
+            },
+          ],
+        },
+        {
+          model: this.Task,
+        },
+      ],
+      order: [
+        ["approved", "ASC"],
+        ["user", "division", "id", "ASC"],
+        ["user", "id", "ASC"],
+        ["created_at", "ASC"],
+      ],
     });
+    return res;
   }
 
   async getLeave(leave_id: number) {
@@ -107,7 +139,7 @@ class LeaveService {
   async approveLeave(leave_id: number, approved: boolean) {
     return await this.Leave.update(
       {
-        approved,
+        approved: Number(approved),
       },
       {
         where: {

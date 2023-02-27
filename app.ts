@@ -28,6 +28,7 @@ app.use(
     origin: function (ctx) {
       return "*";
     },
+    methods: "GET,HEAD,PUT,POST,DELETE,PATCH",
     maxAge: 5,
     credentials: true,
   })
