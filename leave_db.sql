@@ -11,7 +11,7 @@
  Target Server Version : 80031
  File Encoding         : 65001
 
- Date: 24/02/2023 16:39:28
+ Date: 27/02/2023 17:26:33
 */
 
 SET NAMES utf8mb4;
@@ -55,17 +55,19 @@ CREATE TABLE `Leaves` (
   KEY `task_id` (`task_id`),
   CONSTRAINT `leaves_ibfk_7` FOREIGN KEY (`user_id`) REFERENCES `Users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `leaves_ibfk_8` FOREIGN KEY (`task_id`) REFERENCES `Tasks` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of Leaves
 -- ----------------------------
 BEGIN;
-INSERT INTO `Leaves` (`id`, `length`, `created_at`, `user_id`, `task_id`, `comment`, `approved`) VALUES (1, 10, '2023-02-22 07:39:25', 1, 1, NULL, 0);
-INSERT INTO `Leaves` (`id`, `length`, `created_at`, `user_id`, `task_id`, `comment`, `approved`) VALUES (4, 8, '2023-02-22 09:12:41', 1, 1, NULL, 0);
-INSERT INTO `Leaves` (`id`, `length`, `created_at`, `user_id`, `task_id`, `comment`, `approved`) VALUES (13, 0.5, '2023-02-24 08:38:24', 14, 1, NULL, 0);
-INSERT INTO `Leaves` (`id`, `length`, `created_at`, `user_id`, `task_id`, `comment`, `approved`) VALUES (14, 0.5, '2023-02-24 08:38:24', 13, 1, NULL, 0);
-INSERT INTO `Leaves` (`id`, `length`, `created_at`, `user_id`, `task_id`, `comment`, `approved`) VALUES (15, 0.5, '2023-02-24 08:38:24', 1, 1, NULL, 0);
+INSERT INTO `Leaves` (`id`, `length`, `created_at`, `user_id`, `task_id`, `comment`, `approved`) VALUES (18, 0.5, '2023-02-27 02:33:27', 1, 1, NULL, 0);
+INSERT INTO `Leaves` (`id`, `length`, `created_at`, `user_id`, `task_id`, `comment`, `approved`) VALUES (20, 0.5, '2023-02-27 07:01:47', 1, 1, NULL, 1);
+INSERT INTO `Leaves` (`id`, `length`, `created_at`, `user_id`, `task_id`, `comment`, `approved`) VALUES (21, 0.5, '2023-02-27 07:01:47', 1, 1, NULL, 0);
+INSERT INTO `Leaves` (`id`, `length`, `created_at`, `user_id`, `task_id`, `comment`, `approved`) VALUES (43, 0.5, '2023-02-27 07:25:37', 1, NULL, NULL, 1);
+INSERT INTO `Leaves` (`id`, `length`, `created_at`, `user_id`, `task_id`, `comment`, `approved`) VALUES (49, 3.5, '2023-02-27 07:25:37', 14, 1, NULL, 1);
+INSERT INTO `Leaves` (`id`, `length`, `created_at`, `user_id`, `task_id`, `comment`, `approved`) VALUES (65, 1, '2023-02-27 07:25:37', 15, 1, NULL, 0);
+INSERT INTO `Leaves` (`id`, `length`, `created_at`, `user_id`, `task_id`, `comment`, `approved`) VALUES (66, 0.5, '2023-02-27 07:25:37', 15, 4, NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -132,15 +134,16 @@ CREATE TABLE `Roles` (
   `role_name` varchar(255) NOT NULL,
   `right_list` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of Roles
 -- ----------------------------
 BEGIN;
-INSERT INTO `Roles` (`id`, `role_name`, `right_list`) VALUES (1, 'admin1', '1,2,3,4,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35');
+INSERT INTO `Roles` (`id`, `role_name`, `right_list`) VALUES (1, 'admin', '1,2,3,4,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35');
 INSERT INTO `Roles` (`id`, `role_name`, `right_list`) VALUES (2, 'enginner', '1,2,3');
 INSERT INTO `Roles` (`id`, `role_name`, `right_list`) VALUES (4, 't', '1,2,3,4,6,8,9,10,11,12,13,14,15,16,20');
+INSERT INTO `Roles` (`id`, `role_name`, `right_list`) VALUES (5, 'team_leader', '1,2,3,4,5,10,12,16,20,21,22,26,28,29,30,31,32,33,34,35');
 COMMIT;
 
 -- ----------------------------
@@ -180,7 +183,7 @@ CREATE TABLE `Users` (
   KEY `division_id` (`division_id`),
   CONSTRAINT `users_ibfk_11` FOREIGN KEY (`role_id`) REFERENCES `Roles` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `users_ibfk_12` FOREIGN KEY (`division_id`) REFERENCES `Divisions` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of Users
@@ -189,6 +192,7 @@ BEGIN;
 INSERT INTO `Users` (`id`, `username`, `password`, `realname`, `catagory`, `role_id`, `division_id`) VALUES (1, 'admin', '123', 'dd', 0, 1, 2);
 INSERT INTO `Users` (`id`, `username`, `password`, `realname`, `catagory`, `role_id`, `division_id`) VALUES (13, 't', '123', 't', 0, 4, 1);
 INSERT INTO `Users` (`id`, `username`, `password`, `realname`, `catagory`, `role_id`, `division_id`) VALUES (14, '111', '123', '111', 0, 4, 1);
+INSERT INTO `Users` (`id`, `username`, `password`, `realname`, `catagory`, `role_id`, `division_id`) VALUES (15, 'team', '123', 'ss', 0, 5, 1);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
