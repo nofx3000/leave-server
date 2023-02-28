@@ -9,6 +9,7 @@ import {
 import Role from "./role.model";
 import Division from "./division.model";
 import Leave from "./leave.model";
+import Record from "./record.model";
 
 @Table({
   timestamps: false,
@@ -50,4 +51,7 @@ export default class User extends Model {
 
   @HasMany(() => Leave)
   leaves!: Leave[];
+
+  @HasMany(() => Record)
+  records!: Record[];
 }

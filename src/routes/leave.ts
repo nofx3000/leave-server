@@ -29,8 +29,6 @@ router.get("/:leave_id", async (ctx: Context) => {
 router.post("/", async (ctx: Context) => {
   //   const user_id: number = ctx.userinfo.id;
   const leaveinfo: LeaveInter = ctx.request.body as any;
-  console.log(leaveinfo);
-
   ctx.body = await LeaveController.addLeaves(leaveinfo)(ctx);
 });
 

@@ -11,7 +11,7 @@
  Target Server Version : 80031
  File Encoding         : 65001
 
- Date: 27/02/2023 17:26:33
+ Date: 28/02/2023 11:26:20
 */
 
 SET NAMES utf8mb4;
@@ -45,7 +45,7 @@ DROP TABLE IF EXISTS `Leaves`;
 CREATE TABLE `Leaves` (
   `id` int NOT NULL AUTO_INCREMENT,
   `length` float NOT NULL,
-  `created_at` datetime NOT NULL DEFAULT '2023-02-23 08:57:39',
+  `created_at` datetime NOT NULL DEFAULT '2023-02-28 00:47:42',
   `user_id` int DEFAULT NULL,
   `task_id` int DEFAULT NULL,
   `comment` varchar(255) DEFAULT NULL,
@@ -53,9 +53,9 @@ CREATE TABLE `Leaves` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `task_id` (`task_id`),
-  CONSTRAINT `leaves_ibfk_7` FOREIGN KEY (`user_id`) REFERENCES `Users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `leaves_ibfk_8` FOREIGN KEY (`task_id`) REFERENCES `Tasks` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `leaves_ibfk_10` FOREIGN KEY (`task_id`) REFERENCES `Tasks` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `leaves_ibfk_9` FOREIGN KEY (`user_id`) REFERENCES `Users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of Leaves
@@ -63,11 +63,39 @@ CREATE TABLE `Leaves` (
 BEGIN;
 INSERT INTO `Leaves` (`id`, `length`, `created_at`, `user_id`, `task_id`, `comment`, `approved`) VALUES (18, 0.5, '2023-02-27 02:33:27', 1, 1, NULL, 0);
 INSERT INTO `Leaves` (`id`, `length`, `created_at`, `user_id`, `task_id`, `comment`, `approved`) VALUES (20, 0.5, '2023-02-27 07:01:47', 1, 1, NULL, 1);
-INSERT INTO `Leaves` (`id`, `length`, `created_at`, `user_id`, `task_id`, `comment`, `approved`) VALUES (21, 0.5, '2023-02-27 07:01:47', 1, 1, NULL, 0);
+INSERT INTO `Leaves` (`id`, `length`, `created_at`, `user_id`, `task_id`, `comment`, `approved`) VALUES (21, 0.5, '2023-02-27 07:01:47', 1, 1, NULL, 1);
 INSERT INTO `Leaves` (`id`, `length`, `created_at`, `user_id`, `task_id`, `comment`, `approved`) VALUES (43, 0.5, '2023-02-27 07:25:37', 1, NULL, NULL, 1);
 INSERT INTO `Leaves` (`id`, `length`, `created_at`, `user_id`, `task_id`, `comment`, `approved`) VALUES (49, 3.5, '2023-02-27 07:25:37', 14, 1, NULL, 1);
-INSERT INTO `Leaves` (`id`, `length`, `created_at`, `user_id`, `task_id`, `comment`, `approved`) VALUES (65, 1, '2023-02-27 07:25:37', 15, 1, NULL, 0);
+INSERT INTO `Leaves` (`id`, `length`, `created_at`, `user_id`, `task_id`, `comment`, `approved`) VALUES (65, 1, '2023-02-27 07:25:37', 15, 1, NULL, 1);
 INSERT INTO `Leaves` (`id`, `length`, `created_at`, `user_id`, `task_id`, `comment`, `approved`) VALUES (66, 0.5, '2023-02-27 07:25:37', 15, 4, NULL, 0);
+INSERT INTO `Leaves` (`id`, `length`, `created_at`, `user_id`, `task_id`, `comment`, `approved`) VALUES (67, 1.5, '2023-02-28 02:09:07', 15, 1, NULL, 0);
+COMMIT;
+
+-- ----------------------------
+-- Table structure for Records
+-- ----------------------------
+DROP TABLE IF EXISTS `Records`;
+CREATE TABLE `Records` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `length` float NOT NULL,
+  `leave_at` datetime NOT NULL DEFAULT '2023-02-28 00:47:42',
+  `user_id` int DEFAULT NULL,
+  `comment` varchar(255) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `records_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `Users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+-- ----------------------------
+-- Records of Records
+-- ----------------------------
+BEGIN;
+INSERT INTO `Records` (`id`, `length`, `leave_at`, `user_id`, `comment`) VALUES (1, 1, '2023-02-28 00:47:42', 1, NULL);
+INSERT INTO `Records` (`id`, `length`, `leave_at`, `user_id`, `comment`) VALUES (2, 2, '2023-01-31 16:03:00', 15, NULL);
+INSERT INTO `Records` (`id`, `length`, `leave_at`, `user_id`, `comment`) VALUES (5, 4, '2023-02-15 02:10:12', 1, NULL);
+INSERT INTO `Records` (`id`, `length`, `leave_at`, `user_id`, `comment`) VALUES (7, 4, '2023-02-27 16:03:00', 15, NULL);
+INSERT INTO `Records` (`id`, `length`, `leave_at`, `user_id`, `comment`) VALUES (8, 4, '2023-02-09 03:03:02', 15, NULL);
+INSERT INTO `Records` (`id`, `length`, `leave_at`, `user_id`, `comment`) VALUES (9, 4, '2023-02-09 03:03:15', 14, NULL);
 COMMIT;
 
 -- ----------------------------
@@ -82,7 +110,7 @@ CREATE TABLE `Rights` (
   `service_name` varchar(255) DEFAULT NULL,
   `service_action` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of Rights
@@ -123,6 +151,14 @@ INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `ser
 INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (33, '修改调休申请', 1, NULL, 'leaveService', 'updateLeave');
 INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (34, '删除调休申请', 1, NULL, 'leaveService', 'delLeave');
 INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (35, '审批调休', 1, NULL, 'leaveService', 'approveLeave');
+INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (36, '查看全员倒休记录', 2, '/recordListAll', 'recordService', 'getRecordsList');
+INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (37, '查看本中队倒休记录', 2, '/recordListDivision', 'recordService', 'getRecordsListByDivision');
+INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (38, '查看本人倒休记录', 2, '/recordListUser', 'recordService', 'getRecordsListByUser');
+INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (39, '添加倒休记录', 2, NULL, 'recordService', 'addRecords');
+INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (40, '修改倒休记录', 2, NULL, 'recordService', 'updateRecord');
+INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (41, '删除倒休记录', 2, NULL, 'recordService', 'delRecord');
+INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (42, '获取单条倒休记录', 2, NULL, 'recordService', 'getRecord');
+INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (43, '为指定用户添加倒休记录', 2, NULL, 'recordService', 'addRecord');
 COMMIT;
 
 -- ----------------------------
@@ -140,10 +176,10 @@ CREATE TABLE `Roles` (
 -- Records of Roles
 -- ----------------------------
 BEGIN;
-INSERT INTO `Roles` (`id`, `role_name`, `right_list`) VALUES (1, 'admin', '1,2,3,4,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35');
+INSERT INTO `Roles` (`id`, `role_name`, `right_list`) VALUES (1, 'admin', '1,2,3,4,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42');
 INSERT INTO `Roles` (`id`, `role_name`, `right_list`) VALUES (2, 'enginner', '1,2,3');
 INSERT INTO `Roles` (`id`, `role_name`, `right_list`) VALUES (4, 't', '1,2,3,4,6,8,9,10,11,12,13,14,15,16,20');
-INSERT INTO `Roles` (`id`, `role_name`, `right_list`) VALUES (5, 'team_leader', '1,2,3,4,5,10,12,16,20,21,22,26,28,29,30,31,32,33,34,35');
+INSERT INTO `Roles` (`id`, `role_name`, `right_list`) VALUES (5, 'team_leader', '1,2,3,4,5,10,12,16,20,21,22,26,28,29,30,31,32,33,34,35,37,38,39,40,41,42,43');
 COMMIT;
 
 -- ----------------------------
@@ -181,8 +217,8 @@ CREATE TABLE `Users` (
   PRIMARY KEY (`id`),
   KEY `role_id` (`role_id`),
   KEY `division_id` (`division_id`),
-  CONSTRAINT `users_ibfk_11` FOREIGN KEY (`role_id`) REFERENCES `Roles` (`id`) ON UPDATE CASCADE,
-  CONSTRAINT `users_ibfk_12` FOREIGN KEY (`division_id`) REFERENCES `Divisions` (`id`) ON UPDATE CASCADE
+  CONSTRAINT `users_ibfk_13` FOREIGN KEY (`role_id`) REFERENCES `Roles` (`id`) ON UPDATE CASCADE,
+  CONSTRAINT `users_ibfk_14` FOREIGN KEY (`division_id`) REFERENCES `Divisions` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
