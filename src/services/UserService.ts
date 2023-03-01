@@ -5,9 +5,29 @@ class UserService {
   static UserService: UserService = new UserService();
   private User = seq.models.User;
   private Division = seq.models.Division;
+  private Leave = seq.models.Leave;
+  private Record = seq.models.Record;
 
   async getUsersList() {
     return await this.User.findAll();
+  }
+
+  async getUsersLeaveAndRecord() {
+    return await this.User.findAll({
+      include: [
+        {
+          model: this.Leave,
+        },
+        {
+          model: this.Record,
+        },
+        {
+          model: this.Division,
+          as: "division",
+        },
+      ],
+      order: [["division", "id", "ASC"]],
+    });
   }
 
   async getUsersListByDivision() {

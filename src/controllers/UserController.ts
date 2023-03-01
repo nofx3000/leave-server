@@ -33,6 +33,17 @@ class UserController {
     };
   }
 
+  getUsersLeaveAndRecord() {
+    return async (ctx: Context) => {
+      try {
+        const res = await UserService.getUsersLeaveAndRecord()(ctx);
+        return new SuccessModel(res);
+      } catch (error) {
+        return new ErrorModel((error as any).toString());
+      }
+    };
+  }
+
   createUser(userinfo: UserInfoInter) {
     return async (ctx: Context) => {
       try {

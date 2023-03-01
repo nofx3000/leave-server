@@ -16,6 +16,10 @@ router.get("/division", async (ctx: Context) => {
   ctx.body = await UserController.getUsersListByDivision()(ctx);
 });
 
+router.get("/all", async (ctx: Context) => {
+  ctx.body = await UserController.getUsersLeaveAndRecord()(ctx);
+});
+
 router.post("/create", async (ctx: Context) => {
   const userinfo: UserInfoInter = ctx.request.body as any;
   ctx.body = await UserController.createUser(userinfo)(ctx);
