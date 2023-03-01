@@ -11,7 +11,7 @@
  Target Server Version : 80031
  File Encoding         : 65001
 
- Date: 28/02/2023 11:26:20
+ Date: 01/03/2023 15:43:37
 */
 
 SET NAMES utf8mb4;
@@ -55,7 +55,7 @@ CREATE TABLE `Leaves` (
   KEY `task_id` (`task_id`),
   CONSTRAINT `leaves_ibfk_10` FOREIGN KEY (`task_id`) REFERENCES `Tasks` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `leaves_ibfk_9` FOREIGN KEY (`user_id`) REFERENCES `Users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=68 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of Leaves
@@ -69,6 +69,7 @@ INSERT INTO `Leaves` (`id`, `length`, `created_at`, `user_id`, `task_id`, `comme
 INSERT INTO `Leaves` (`id`, `length`, `created_at`, `user_id`, `task_id`, `comment`, `approved`) VALUES (65, 1, '2023-02-27 07:25:37', 15, 1, NULL, 1);
 INSERT INTO `Leaves` (`id`, `length`, `created_at`, `user_id`, `task_id`, `comment`, `approved`) VALUES (66, 0.5, '2023-02-27 07:25:37', 15, 4, NULL, 0);
 INSERT INTO `Leaves` (`id`, `length`, `created_at`, `user_id`, `task_id`, `comment`, `approved`) VALUES (67, 1.5, '2023-02-28 02:09:07', 15, 1, NULL, 0);
+INSERT INTO `Leaves` (`id`, `length`, `created_at`, `user_id`, `task_id`, `comment`, `approved`) VALUES (68, 1, '2023-02-28 02:09:07', 14, 1, NULL, 0);
 COMMIT;
 
 -- ----------------------------
@@ -110,7 +111,7 @@ CREATE TABLE `Rights` (
   `service_name` varchar(255) DEFAULT NULL,
   `service_action` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of Rights
@@ -159,6 +160,9 @@ INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `ser
 INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (41, '删除倒休记录', 2, NULL, 'recordService', 'delRecord');
 INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (42, '获取单条倒休记录', 2, NULL, 'recordService', 'getRecord');
 INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (43, '为指定用户添加倒休记录', 2, NULL, 'recordService', 'addRecord');
+INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (44, '数据展示', 0, '/show', NULL, NULL);
+INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (45, '可调休记录展示', 44, '/showLeave', NULL, NULL);
+INSERT INTO `Rights` (`id`, `right_name`, `pid`, `is_menu`, `service_name`, `service_action`) VALUES (46, '获取所有用户的倒休和申请记录', 4, NULL, 'userService', 'getUsersLeaveAndRecord');
 COMMIT;
 
 -- ----------------------------
@@ -176,10 +180,10 @@ CREATE TABLE `Roles` (
 -- Records of Roles
 -- ----------------------------
 BEGIN;
-INSERT INTO `Roles` (`id`, `role_name`, `right_list`) VALUES (1, 'admin', '1,2,3,4,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42');
-INSERT INTO `Roles` (`id`, `role_name`, `right_list`) VALUES (2, 'enginner', '1,2,3');
-INSERT INTO `Roles` (`id`, `role_name`, `right_list`) VALUES (4, 't', '1,2,3,4,6,8,9,10,11,12,13,14,15,16,20');
-INSERT INTO `Roles` (`id`, `role_name`, `right_list`) VALUES (5, 'team_leader', '1,2,3,4,5,10,12,16,20,21,22,26,28,29,30,31,32,33,34,35,37,38,39,40,41,42,43');
+INSERT INTO `Roles` (`id`, `role_name`, `right_list`) VALUES (1, 'admin', '1,2,3,4,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,44,45,46');
+INSERT INTO `Roles` (`id`, `role_name`, `right_list`) VALUES (2, '工程师', '1,2,3,10,12,16,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,46');
+INSERT INTO `Roles` (`id`, `role_name`, `right_list`) VALUES (4, '作业员', '1,2,10,12,16,20,21,22,26,29,30,31,32,33,38,42');
+INSERT INTO `Roles` (`id`, `role_name`, `right_list`) VALUES (5, '中队长', '1,2,10,12,16,20,21,22,26,28,29,30,31,32,33,34,35,37,38,39,40,41,42,43');
 COMMIT;
 
 -- ----------------------------
@@ -219,7 +223,7 @@ CREATE TABLE `Users` (
   KEY `division_id` (`division_id`),
   CONSTRAINT `users_ibfk_13` FOREIGN KEY (`role_id`) REFERENCES `Roles` (`id`) ON UPDATE CASCADE,
   CONSTRAINT `users_ibfk_14` FOREIGN KEY (`division_id`) REFERENCES `Divisions` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- ----------------------------
 -- Records of Users
@@ -227,8 +231,15 @@ CREATE TABLE `Users` (
 BEGIN;
 INSERT INTO `Users` (`id`, `username`, `password`, `realname`, `catagory`, `role_id`, `division_id`) VALUES (1, 'admin', '123', 'dd', 0, 1, 2);
 INSERT INTO `Users` (`id`, `username`, `password`, `realname`, `catagory`, `role_id`, `division_id`) VALUES (13, 't', '123', 't', 0, 4, 1);
-INSERT INTO `Users` (`id`, `username`, `password`, `realname`, `catagory`, `role_id`, `division_id`) VALUES (14, '111', '123', '111', 0, 4, 1);
+INSERT INTO `Users` (`id`, `username`, `password`, `realname`, `catagory`, `role_id`, `division_id`) VALUES (14, 'operator', '123', '111', 0, 4, 1);
 INSERT INTO `Users` (`id`, `username`, `password`, `realname`, `catagory`, `role_id`, `division_id`) VALUES (15, 'team', '123', 'ss', 0, 5, 1);
+INSERT INTO `Users` (`id`, `username`, `password`, `realname`, `catagory`, `role_id`, `division_id`) VALUES (16, 'engineer', '123', '123', 0, 2, 1);
+INSERT INTO `Users` (`id`, `username`, `password`, `realname`, `catagory`, `role_id`, `division_id`) VALUES (17, '1', '123', '1', 0, 4, NULL);
+INSERT INTO `Users` (`id`, `username`, `password`, `realname`, `catagory`, `role_id`, `division_id`) VALUES (18, '2', '123', '2', 0, 4, NULL);
+INSERT INTO `Users` (`id`, `username`, `password`, `realname`, `catagory`, `role_id`, `division_id`) VALUES (19, '3', '123', '3', 0, 4, NULL);
+INSERT INTO `Users` (`id`, `username`, `password`, `realname`, `catagory`, `role_id`, `division_id`) VALUES (20, '4', '123', '4', 0, 4, NULL);
+INSERT INTO `Users` (`id`, `username`, `password`, `realname`, `catagory`, `role_id`, `division_id`) VALUES (21, '5', '123', '5', 0, 4, NULL);
+INSERT INTO `Users` (`id`, `username`, `password`, `realname`, `catagory`, `role_id`, `division_id`) VALUES (22, '6', '123', '6', 0, 4, NULL);
 COMMIT;
 
 SET FOREIGN_KEY_CHECKS = 1;
