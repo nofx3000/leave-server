@@ -11,7 +11,7 @@
  Target Server Version : 80031
  File Encoding         : 65001
 
- Date: 01/03/2023 15:43:37
+ Date: 02/03/2023 10:24:06
 */
 
 SET NAMES utf8mb4;
@@ -229,7 +229,7 @@ CREATE TABLE `Users` (
 -- Records of Users
 -- ----------------------------
 BEGIN;
-INSERT INTO `Users` (`id`, `username`, `password`, `realname`, `catagory`, `role_id`, `division_id`) VALUES (1, 'admin', '123', 'dd', 0, 1, 2);
+INSERT INTO `Users` (`id`, `username`, `password`, `realname`, `catagory`, `role_id`, `division_id`) VALUES (1, 'admin', '123', 'donghang', 0, 1, 2);
 INSERT INTO `Users` (`id`, `username`, `password`, `realname`, `catagory`, `role_id`, `division_id`) VALUES (13, 't', '123', 't', 0, 4, 1);
 INSERT INTO `Users` (`id`, `username`, `password`, `realname`, `catagory`, `role_id`, `division_id`) VALUES (14, 'operator', '123', '111', 0, 4, 1);
 INSERT INTO `Users` (`id`, `username`, `password`, `realname`, `catagory`, `role_id`, `division_id`) VALUES (15, 'team', '123', 'ss', 0, 5, 1);

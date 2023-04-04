@@ -4,11 +4,21 @@ import { ErrorModel, SuccessModel } from "../resmodel/ResModel";
 import RightService from "../services/RightService";
 import RoleService from "../services/RoleService";
 import { Model } from "sequelize";
+import serviceModules from "../services";
+
+console.log("serviceModules", serviceModules);
 
 export const getService = (serviceName: string) => {
-  const servicePath = path.join(__dirname, "..", "services", serviceName);
+  //-------------Webpack后启动报错 "Cannot find module XXX"-------------
 
-  const serviceModule = require(servicePath).default;
+  // const servicePath = path.join(__dirname, "..", "services", serviceName);
+
+  // const serviceModule = require(servicePath).default;
+
+  //------------------------------------------------------------------
+
+  const serviceModule: any =
+    serviceModules[serviceName as keyof typeof serviceModules];
 
   if (!serviceModule) {
     console.log("没有该服务");
