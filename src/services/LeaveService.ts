@@ -26,9 +26,9 @@ class LeaveService {
       ],
       order: [
         ["approved", "ASC"],
+        ["created_at", "DESC"],
         ["user", "division", "id", "ASC"],
         ["user", "id", "ASC"],
-        ["created_at", "ASC"],
       ],
     });
   }
@@ -55,9 +55,9 @@ class LeaveService {
       ],
       order: [
         ["approved", "ASC"],
+        ["created_at", "DESC"],
         ["user", "division", "id", "ASC"],
         ["user", "id", "ASC"],
-        ["created_at", "ASC"],
       ],
     });
   }
@@ -84,9 +84,9 @@ class LeaveService {
       ],
       order: [
         ["approved", "ASC"],
+        ["created_at", "ASC"],
         ["user", "division", "id", "ASC"],
         ["user", "id", "ASC"],
-        ["created_at", "ASC"],
       ],
     });
     return res;
